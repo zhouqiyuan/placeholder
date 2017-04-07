@@ -2,7 +2,7 @@
 
 	/**
 	 * Spoofs placeholders in browsers that don't support them (eg Firefox 3)
-	 * 
+	 *
 	 * Copyright 2011 Dan Bentley
 	 * Licensed under the Apache License 2.0
 	 *
@@ -12,7 +12,7 @@
 	// Return if native support is available.
 	if ("placeholder" in document.createElement("input")) return;
 
-	$(document).ready(function(){
+	$(document).ready(function() {
 		$(':input[placeholder]').not(':password').each(function() {
 			setupPlaceholder($(this));
 		});
@@ -20,7 +20,7 @@
 		$(':password[placeholder]').each(function() {
 			setupPasswords($(this));
 		});
-	   
+
 		$('form').submit(function(e) {
 			clearPlaceholdersBeforeSubmit($(this));
 		});
@@ -35,31 +35,31 @@
 			if (input.data('changed') === true) return;
 			if (input.val() === placeholderText) input.val('');
 		}).blur(function(e) {
-			if (input.val() === '') input.val(placeholderText); 
+			if (input.val() === '') input.val(placeholderText);
 		}).change(function(e) {
 			input.data('changed', input.val() !== '');
 		});
 	}
 
 	function setPlaceholderOrFlagChanged(input, text) {
-		(input.val() === '') ? input.val(text) : input.data('changed', true);
+		(input.val() === '') ? input.val(text): input.data('changed', true);
 	}
 
 	function setupPasswords(input) {
 		var passwordPlaceholder = createPasswordPlaceholder(input);
 		input.after(passwordPlaceholder);
 
-		(input.val() === '') ? input.hide() : passwordPlaceholder.hide();
+		(input.val() === '') ? input.hide(): passwordPlaceholder.hide();
 
 		$(input).blur(function(e) {
 			if (input.val() !== '') return;
 			input.hide();
 			passwordPlaceholder.show();
 		});
-			
+
 		$(passwordPlaceholder).focus(function(e) {
-			input.show().focus();
 			passwordPlaceholder.hide();
+			input.show().focus();
 		});
 	}
 
